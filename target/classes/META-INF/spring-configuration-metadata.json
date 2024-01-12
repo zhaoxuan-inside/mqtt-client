@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "publish.mqtt",
+      "type": "org.zhaoxuan.config.MQTTConfig",
+      "sourceType": "org.zhaoxuan.config.MQTTConfig"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

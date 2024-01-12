@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="SERVICE_NAME" value="mqtt-client"/>
+    <property name="ROOT_PATH" value="./logs"/>
+    <property name="LOG_DIR" value="./logs"/>
+    <property name="LOG_PATTERN"
+              value="[%level] [%d{yyyy-MM-dd_HH:mm:ss.SSS}] TRACE_ID:[%X{TRACE-ID}] [%thread] [%file:%line] - %msg%n"/>
+    <property name="ALL_LOG_FILE_NAME" value="${ROOT_PATH}/${SERVICE_NAME}"/>
+
+    <appender name="LOG_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${ALL_LOG_FILE_NAME}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/${SERVICE_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <maxFileSize>1gb</maxFileSize>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <root level="debug">
+<!--        <appender-ref ref="LOG_FILE"/>-->
+        <appender-ref ref="LOG_CONSOLE"/>
+    </root>
+
+    <logger name="org.jinterop" level="OFF"/>
+
+</configuration>
