@@ -1,6 +1,6 @@
 package org.zhaoxuan.common.constants;
 
-public interface ConfigConstants {
+public interface ConfigConstant {
 
     String MQTT_PREFIX = "publish.mqtt";
     String MQTT_IN_MESSAGE_BOUND = "MQTT_IN_MESSAGE_BOUND";
