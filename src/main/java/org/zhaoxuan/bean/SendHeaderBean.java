@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.ObjectUtils;
 import org.zhaoxuan.common.enums.ReceiveServiceKeyEnum;
 import org.zhaoxuan.common.enums.ResponseEnum;
 import reactor.util.annotation.Nullable;
@@ -21,7 +22,7 @@ public class SendHeaderBean {
     private ResponseEnum status;
 
     public String toPath() {
-        return prefix + "/Online/" + code + "/" + serviceKey.getServiceKey() + "/" + status.getCode();
+        return prefix + "/" + code + "/" + serviceKey.getServiceKey() + "/" + status.getCode();
     }
 
     @Nullable
@@ -41,4 +42,18 @@ public class SendHeaderBean {
         }
         return this;
     }
+
+    @Nullable
+    public SendHeaderBean getByReceive(ReceiveHeaderBean bean, int status) {
+        prefix = bean.getPrefix();
+        code = bean.getCode();
+        serviceKey = bean.getServiceKey();
+        ResponseEnum byCode = ResponseEnum.getByCode(status);
+        if (ObjectUtils.isEmpty(byCode)) {
+            return null;
+        }
+        this.status = byCode;
+        return this;
+    }
+
 }

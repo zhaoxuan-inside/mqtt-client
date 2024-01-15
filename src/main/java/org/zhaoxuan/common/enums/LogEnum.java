@@ -18,6 +18,8 @@ public enum LogEnum {
     NOT_FOUND_VALUE("NotFoundValue.Topic:[{}]."),
     NOT_FOUND_MEASURING_POINT_ID("NotFoundMeasuringPointId.ChNo:[{}],Axial:[{}]"),
 
+    INVALID_RESPONSE("InvalidResponse.Receive:[{}],Status:[{}]."),
+
     UPLOAD_FILE_FAILURE("UploadFileFailure.Key:[{}].");
     private final String print;
 }

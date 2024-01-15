@@ -39,7 +39,6 @@ public class WaveDataMessageHandleBizImpl implements MqttMessageHandleBiz {
     private final SensorUtil sensorUtil;
     private final FileUtil fileUtil;
     private final WaveDataCache cache;
-    private final MqttSender mqttSender;
     private final SensorService sensorService;
     private final PointVibrateService pointVibrateService;
 

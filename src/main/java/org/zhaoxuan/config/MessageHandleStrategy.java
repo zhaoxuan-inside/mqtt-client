@@ -10,6 +10,7 @@ import org.springframework.messaging.MessageHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 import org.zhaoxuan.bean.ReceiveHeaderBean;
+import org.zhaoxuan.bean.SendHeaderBean;
 import org.zhaoxuan.biz.MqttMessageHandleBiz;
 import org.zhaoxuan.biz.impl.IndexDataMessageHandleBizImpl;
 import org.zhaoxuan.biz.impl.WaveDataMessageHandleBizImpl;
@@ -75,7 +76,13 @@ public class MessageHandleStrategy {
                 return;
             }
             int responseCode = handler.analysePayload(bean, payload);
-            mqttSender.sendWithTopic(topic + "/" + responseCode, "");
+            SendHeaderBean sendHeaderBean = new SendHeaderBean();
+            SendHeaderBean byReceive = sendHeaderBean.getByReceive(bean, responseCode);
+            if (ObjectUtils.isEmpty(byReceive)) {
+                log.info(LogEnum.INVALID_RESPONSE.getPrint(), bean, responseCode);
+                return;
+            }
+            mqttSender.sendWithTopic(byReceive.toPath(), "");
         };
     }
 
